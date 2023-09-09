@@ -9,4 +9,19 @@ return {
   --     require("lsp_signature").setup()
   --   end,
   -- },
+  {
+    "navarasu/onedark.nvim",
+    config = function()
+      -- Lua
+      require('onedark').setup {
+        style = 'dark'
+      }
+      require('onedark').load()
+    end,
+  },
+  -- codeium
+  {
+    'Exafunction/codeium.vim',
+    event = 'BufEnter'
+  },
 }

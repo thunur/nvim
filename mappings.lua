@@ -30,8 +30,35 @@ return {
     -- tables with the `name` key will be registered with which-key if it's installed
     -- this is useful for naming menus
     ["<leader>b"] = { name = "Buffers" },
+    ["<C-x>"] = { function() require("astronvim.utils.buffer").close() end, desc = "Close buffer" },
+    ["<tab>"] = { function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end, desc = "Next buffer" },
+    ["<S-tab>"] = { function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end, desc = "Previous buffer"},
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+
+    -- NeoTree
+    ["<C-n>"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+    ["<C-e>"] = {
+      function()
+        if vim.bo.filetype == "neo-tree" then
+          vim.cmd.wincmd "p"
+        else
+          vim.cmd.Neotree "focus"
+        end
+      end,
+      desc = "Toggle Explorer Focus",
+    },
+    ["<C-f>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
+    ["<C-F>"] = {
+      function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
+      desc = "Find all files",
+    },
+    -- 保存session
+    ["<C-ss>"] = { function() require("resession").save() end, desc = "Save this session" },
+    ["<C-o>"] = {
+      function() require("resession").load(vim.fn.getcwd(), { dir = "dirsession" }) end,
+      desc = "Load current directory session",
+    },
   },
   t = {
     -- setting a mapping to false will disable it
